@@ -1,8 +1,9 @@
-import { apiConfig } from "./constants.js";
+import { apiConfig } from './constants.js';
 
 class Api {
-  constructor({ url, headers }) {
+  constructor({ url, headers, credentials }) {
     this._url = url;
+    this._credentials = credentials;
     this._headers = headers;
   }
 
@@ -17,7 +18,8 @@ class Api {
   //получить список всех карточек в виде массива
   getAllCards() {
     return fetch(`${this._url}/cards`, {
-      method: "GET",
+      method: 'GET',
+      credentials: this._credentials,
       headers: this._headers,
     }).then(this._getResponseData);
   }
@@ -25,7 +27,8 @@ class Api {
   //добавить карточку
   addNewCard({ name, link }) {
     return fetch(`${this._url}/cards`, {
-      method: "POST",
+      method: 'POST',
+      credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({ name, link }),
     }).then(this._getResponseData);
@@ -34,7 +37,8 @@ class Api {
   //поставить карточке свой лайк
   putLike(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: "PUT",
+      method: 'PUT',
+      credentials: this._credentials,
       headers: this._headers,
     }).then(this._getResponseData);
   }
@@ -42,7 +46,8 @@ class Api {
   //удалить с карточки свой лайк
   removeLike(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: "DELETE",
+      method: 'DELETE',
+      credentials: this._credentials,
       headers: this._headers,
     }).then(this._getResponseData);
   }
@@ -50,7 +55,8 @@ class Api {
   //удалить карточку
   deleteCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
-      method: "DELETE",
+      method: 'DELETE',
+      credentials: this._credentials,
       headers: this._headers,
     }).then(this._getResponseData);
   }
@@ -58,7 +64,8 @@ class Api {
   //получить данные своего пользователя
   getServerUserInfo() {
     return fetch(`${this._url}/users/me`, {
-      method: "GET",
+      method: 'GET',
+      credentials: this._credentials,
       headers: this._headers,
     }).then(this._getResponseData);
   }
@@ -66,7 +73,8 @@ class Api {
   //обновить данные своего пользователя
   updateServerUserInfo({ name, about }) {
     return fetch(`${this._url}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
+      credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({ name, about }),
     }).then(this._getResponseData);
@@ -75,7 +83,8 @@ class Api {
   //обновить свой аватар
   updateServerUserAvatar({ avatar }) {
     return fetch(`${this._url}/users/me/avatar `, {
-      method: "PATCH",
+      method: 'PATCH',
+      credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({ avatar }),
     }).then(this._getResponseData);
