@@ -27,6 +27,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useNewUrlParser: true,
 });
 
+// краш-тест
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 // авторизация пользователя с валидацией
 app.post('/signin', celebrate({
 
