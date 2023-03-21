@@ -178,7 +178,7 @@ function App() {
       .deleteCard(card._id)
 
       .then(() => {
-        setCards((state) => state.filter((c) => c._id != card._id));
+        setCards((state) => state.filter((c) => c._id !== card._id));
       })
 
       .then(() => closeAllPopups())
@@ -310,7 +310,7 @@ function App() {
         .then((res) => {
           if (res) {
             const userData = {
-              email: res.data.email,
+              email: res.email,
             };
             setLoggedIn(true);
             setUserData(userData);
