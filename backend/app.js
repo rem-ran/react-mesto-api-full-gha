@@ -1,4 +1,6 @@
 const express = require('express');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
@@ -13,6 +15,8 @@ const NotFoundError = require('./errors/NotFoundError');
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+app.use(cors({ origin: ['http://localhost:3001'], credentials: true, maxAge: 300 }));
 
 app.use(cookieParser());
 
