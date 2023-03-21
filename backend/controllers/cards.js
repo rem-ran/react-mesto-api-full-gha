@@ -73,7 +73,7 @@ module.exports.putCardLike = (req, res, next) => {
         throw new NotFoundError('Карточка по указанному _id не найдена.');
       }
 
-      return res.send({ message: 'Лайк успешно поставлен' });
+      return res.send(card);
     })
 
     .catch((err) => {
@@ -98,7 +98,7 @@ module.exports.deleteCardLike = (req, res, next) => {
         throw new NotFoundError('Карточка по указанному _id не найдена.');
       }
 
-      return res.send({ message: 'Лайк успешно удалён' });
+      return res.send(card);
     })
 
     .catch((err) => {
