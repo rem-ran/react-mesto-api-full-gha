@@ -1,0 +1,11 @@
+.profile__image-text {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__image-text {
+    flex-direction: column;
+  }
+}

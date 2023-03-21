@@ -1,0 +1,14 @@
+.popup__container_info {
+  height: 210px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__container_info {
+    width: 244px;
+    height: 208px;
+    padding: 50px 18px 50px 18px;
+  }
+}

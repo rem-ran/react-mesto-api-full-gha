@@ -1,0 +1,8 @@
+.card__text-box {
+  display: flex;
+  background-color: #ffffff;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 21px;
+  min-height: 38px;
+}

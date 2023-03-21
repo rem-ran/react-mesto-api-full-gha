@@ -1,0 +1,27 @@
+.footer__note {
+  margin: 0 auto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #545454;
+  max-width: 880px;
+  margin-top: 67px;
+  padding-bottom: 60px;
+}
+
+@media screen and (max-width: 1023px) {
+  .footer__note {
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .footer__note {
+    font-size: 14px;
+    line-height: 1.21;
+    max-width: 282px;
+    margin-top: 48px;
+    padding-bottom: 36px;
+  }
+}
