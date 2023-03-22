@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -8,7 +10,7 @@ const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 const auth = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/users');
-const { ERROR_CODE_500 } = require('./utils/constants');
+const { ERROR_CODE_500, DB_ADDRESS } = require('./utils/constants');
 const { regexUrl } = require('./utils/regexUrl');
 const NotFoundError = require('./errors/NotFoundError');
 
@@ -23,7 +25,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 // подклчюение к mongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
+mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
 });
 
