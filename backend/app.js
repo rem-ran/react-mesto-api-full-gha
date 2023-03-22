@@ -1,9 +1,9 @@
 const express = require('express');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 const auth = require('./middlewares/auth');
@@ -26,6 +26,9 @@ app.use(express.json());
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useNewUrlParser: true,
 });
+
+// подключаем логгер запросов
+app.use(requestLogger);
 
 // краш-тест
 app.get('/crash-test', () => {
@@ -64,8 +67,10 @@ app.use('/cards', cardRouter);
 
 app.use('/users', userRouter);
 
+// подключаем логгер ошибок
+app.use(errorLogger);
+
 // обработчик несуществующего рута
-// eslint-disable-next-line no-unused-vars
 app.use((req, res, next) => {
   next(new NotFoundError('Запрошен несуществующий роут.'));
 });
