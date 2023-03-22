@@ -345,14 +345,14 @@ function App() {
             path="/"
             element={
               loggedIn ? (
-                <Navigate to="/mesto-react-auth" replace />
+                <Navigate to="/cards" replace />
               ) : (
                 <Navigate to="/sign-in" replace />
               )
             }
           />
           <Route
-            path="/mesto-react-auth"
+            path="/cards"
             element={
               <ProtectedRoute loggedIn={loggedIn}>
                 <Main
