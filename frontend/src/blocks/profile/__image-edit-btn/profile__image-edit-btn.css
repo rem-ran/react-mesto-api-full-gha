@@ -1,0 +1,20 @@
+.profile__image-edit-btn {
+  background-image: url("../../../images/edit-icon.svg");
+  background-repeat: no-repeat;
+  background-size: 26px, 26px;
+  background-position: 50%, 50%;
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  opacity: 0;
+  border: none;
+  padding: 0;
+  border-radius: 50%;
+  transition: linear 0.3s;
+}
+
+.profile__image-edit-btn:hover {
+  cursor: pointer;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+}

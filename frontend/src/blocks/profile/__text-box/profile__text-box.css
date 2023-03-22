@@ -1,0 +1,19 @@
+.profile__text-box {
+  max-width: 450px;
+  position: relative;
+}
+
+@media screen and (max-width: 1023px) {
+  .profile__text-box {
+    max-width: 230px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile__text-box {
+    max-width: 200px;
+    display: block;
+    text-align: center;
+    margin-top: 26px;
+  }
+}
