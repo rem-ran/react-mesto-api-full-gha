@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -18,7 +17,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.use(cors({ origin: ['http://localhost:3000', 'https://remran.nomoredomains.work'], credentials: true, maxAge: 300 }));
+app.use(cors({ origin: ['http://localhost:3001', 'https://remran.nomoredomains.work'], credentials: true, maxAge: 300 }));
 
 app.use(cookieParser());
 

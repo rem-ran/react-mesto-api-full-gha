@@ -1,5 +1,6 @@
 // const BASE_URL = "https://auth.nomoreparties.co";
 const BASE_URL = "https://api.remran.nomoredomains.work";
+// const BASE_URL = "http://localhost:3000";
 
 function getResponseData(res) {
   if (!res.ok) {
