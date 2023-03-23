@@ -34,3 +34,5 @@ npm-debug.log*
 # Optional npm cache directory
 .npm
 
+test-commit
+
