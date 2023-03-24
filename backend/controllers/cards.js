@@ -1,4 +1,5 @@
 const Card = require('../models/card');
+const { CODE_201 } = require('../utils/constants');
 
 // импорт собственных ошибок
 const NotFoundError = require('../errors/NotFoundError');
@@ -18,7 +19,7 @@ module.exports.createCard = (req, res, next) => {
   const owner = req.user._id;
 
   Card.create({ name, link, owner })
-    .then((card) => res.send(card))
+    .then((card) => res.status(CODE_201).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new ValidationError(err.message));
