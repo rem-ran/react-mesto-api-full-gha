@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
   const { NODE_ENV, JWT_SECRET } = process.env;
 
   if (!token) {
-    next(new AuthError('Необходима авторизация.'));
+    return next(new AuthError('Необходима авторизация.'));
   }
 
   let payload;
@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (err) {
-    next(new AuthError('Необходима авторизация.'));
+    return next(new AuthError('Необходима авторизация.'));
   }
 
   req.user = payload;
