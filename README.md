@@ -10,9 +10,9 @@
 
 ### Ссылки на проект
 
-IP-адрес 158.160.17.101
+IP-адрес 158.160.1.130
 
-Frontend https://api.remran.nomoredomains.work/
+Frontend https://remran.nomoredomains.work
 
-Backend https://remran.nomoredomains.work
+Backend https://api.remran.nomoredomains.work
 
