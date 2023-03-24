@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes/index');
-const { ERROR_CODE_500, DB_ADDRESS } = require('./utils/constants');
+const { errorHandler } = require('./middlewares/errorHandler');
+const { DB_ADDRESS } = require('./utils/constants');
 
 const { PORT = 3000 } = process.env;
 
@@ -42,17 +43,7 @@ app.use(errorLogger);
 // обработчик ошибок celebrate
 app.use(errors());
 
-// централизованный обработчик ошибок
-app.use((err, req, res, next) => {
-  const { statusCode = ERROR_CODE_500, message } = err;
-
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === ERROR_CODE_500
-        ? 'На сервере произошла ошибка.'
-        : message,
-    });
-});
+// подключаем централизованный обработчик ошибок
+app.use(errorHandler);
 
 app.listen(PORT);
