@@ -1,6 +1,4 @@
-// const BASE_URL = "https://auth.nomoreparties.co";
 const BASE_URL = "https://api.remran.nomoredomains.work";
-// const BASE_URL = "http://localhost:3000";
 
 function getResponseData(res) {
   if (!res.ok) {
@@ -29,10 +27,6 @@ export const authorize = ({ password, email }) => {
     body: JSON.stringify({ password, email }),
   })
     .then(getResponseData)
-    // .then((data) => {
-    //   localStorage.setItem('jwt', data._id)
-    //   return data;
-    // })
 };
 
 export const getContent = () => {
@@ -41,7 +35,6 @@ export const getContent = () => {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      // Authorization: `Bearer ${token}`,
     },
   })
     .then(getResponseData)

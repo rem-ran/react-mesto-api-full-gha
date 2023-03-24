@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const isEmail = require('validator/lib/isEmail');
 const { regexUrl } = require('../utils/regexUrl');
 const AuthError = require('../errors/AuthError');
