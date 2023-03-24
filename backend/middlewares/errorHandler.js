@@ -1,4 +1,4 @@
-const { ERROR_CODE_500 } = require('../utils/constants');
+const { ERROR_CODE_500 } = require('../config');
 
 // централизованный обработчик ошибок
 const errorHandler = ((err, req, res, next) => {

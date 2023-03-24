@@ -1,5 +1,5 @@
 const Card = require('../models/card');
-const { CODE_201 } = require('../utils/constants');
+const { CODE_201 } = require('../config');
 
 // импорт собственных ошибок
 const NotFoundError = require('../errors/NotFoundError');

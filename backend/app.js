@@ -5,9 +5,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes/index');
 const { errorHandler } = require('./middlewares/errorHandler');
-const { DB_ADDRESS } = require('./utils/constants');
-
-const { PORT = 3000 } = process.env;
+const { DB_ADDRESS, PORT } = require('./config');
 
 const app = express();
 
