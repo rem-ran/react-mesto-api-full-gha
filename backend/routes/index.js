@@ -1,11 +1,22 @@
 const router = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
+const { celebrate, Joi, errors } = require('celebrate');
 const { login, createUser } = require('../controllers/users');
 const { regexUrl } = require('../utils/regexUrl');
 const auth = require('../middlewares/auth');
 const userRouter = require('./users');
 const cardRouter = require('./cards');
+const { requestLogger, errorLogger } = require('../middlewares/logger');
 const NotFoundError = require('../errors/NotFoundError');
+
+// подключаем логгер запросов
+router.use(requestLogger);
+
+// краш-тест согласно ТЗ
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 // авторизация пользователя с валидацией
 router.post('/signin', celebrate({
@@ -41,5 +52,11 @@ router.use('/users', userRouter);
 router.use((req, res, next) => {
   next(new NotFoundError('Запрошен несуществующий роут.'));
 });
+
+// подключаем логгер ошибок
+router.use(errorLogger);
+
+// обработчик ошибок celebrate
+router.use(errors());
 
 module.exports = router;
