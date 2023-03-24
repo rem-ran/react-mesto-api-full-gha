@@ -19,7 +19,6 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Поле Ссылка обязательно к заполнению'],
     validate: {
-      // eslint-disable-next-line object-shorthand, space-before-function-paren, func-names
       validator: function (v) {
         return regexUrl.test(v);
       },

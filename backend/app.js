@@ -68,19 +68,18 @@ app.use('/cards', cardRouter);
 
 app.use('/users', userRouter);
 
-// подключаем логгер ошибок
-app.use(errorLogger);
-
 // обработчик несуществующего рута
 app.use((req, res, next) => {
   next(new NotFoundError('Запрошен несуществующий роут.'));
 });
 
+// подключаем логгер ошибок
+app.use(errorLogger);
+
 // обработчик ошибок celebrate
 app.use(errors());
 
 // централизованный обработчик ошибок
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const { statusCode = ERROR_CODE_500, message } = err;
 
