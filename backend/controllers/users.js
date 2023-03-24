@@ -132,7 +132,13 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send(user.toJSON());
+        .send({
+          email,
+          about: user.about,
+          avatar: user.avatar,
+          name: user.name,
+          _id: user._id,
+        });
     })
 
     .catch(next);
