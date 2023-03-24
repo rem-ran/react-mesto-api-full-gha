@@ -45,7 +45,7 @@ module.exports.deleteCard = (req, res, next) => {
         throw new NoRightsError('Нельзя удалять чужие карточки.');
       }
 
-      return Card.findByIdAndRemove(cardId);
+      return Card.deleteOne({ _id: cardId });
     })
 
     .then(() => res.send({ message: 'Карточка удалена.' }))
