@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 const User = require('../models/user');
 
 // импорт собственных ошибок
@@ -78,8 +79,8 @@ module.exports.createUser = (req, res, next) => {
     })
 
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return next(new ValidationError(err.message));
+      if (err instanceof mongoose.Error.ValidationError) {
+        return next(new ValidationError(err));
       }
 
       if (err.code === 11000) {
@@ -92,6 +93,7 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
+// общий метод обновления пользователя
 const updateUser = (req, res, next) => {
   const { name, about, avatar } = req.body;
 
@@ -110,8 +112,8 @@ const updateUser = (req, res, next) => {
     ))
 
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return next(new ValidationError(err.message));
+      if (err instanceof mongoose.Error.ValidationError) {
+        return next(new ValidationError(err));
       }
 
       return next(err);

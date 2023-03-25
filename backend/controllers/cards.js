@@ -1,4 +1,6 @@
+const mongoose = require('mongoose');
 const Card = require('../models/card');
+
 const { CODE_201 } = require('../config');
 
 // импорт собственных ошибок
@@ -29,8 +31,8 @@ module.exports.createCard = (req, res, next) => {
     .then((card) => res.status(CODE_201).send(card))
 
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return next(new ValidationError(err.message));
+      if (err instanceof mongoose.Error.ValidationError) {
+        return next(new ValidationError(err));
       }
 
       return next(err);
@@ -61,7 +63,7 @@ module.exports.deleteCard = (req, res, next) => {
     .then(() => res.send({ message: 'Карточка удалена.' }))
 
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err instanceof mongoose.Error.CastError) {
         return next(new NotFoundError('Указан некорректный id карточки.'));
       }
 
@@ -89,7 +91,7 @@ module.exports.putCardLike = (req, res, next) => {
     })
 
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err instanceof mongoose.Error.CastError) {
         return next(new NotFoundError('Указан некорректный id карточки.'));
       }
 
@@ -115,7 +117,7 @@ module.exports.deleteCardLike = (req, res, next) => {
     })
 
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err instanceof mongoose.Error.CastError) {
         return next(new NotFoundError('Указан некорректный id карточки.'));
       }
 
