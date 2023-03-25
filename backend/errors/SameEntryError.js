@@ -1,4 +1,4 @@
-const { ERROR_CODE_409 } = require('../utils/constants');
+const { ERROR_CODE_409 } = require('../config');
 
 class SameEntryError extends Error {
   constructor(message) {

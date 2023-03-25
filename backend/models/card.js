@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { regexUrl } = require('../utils/regexUrl');
+const { regexUrl } = require('../config');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -19,7 +19,6 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Поле Ссылка обязательно к заполнению'],
     validate: {
-      // eslint-disable-next-line object-shorthand, space-before-function-paren, func-names
       validator: function (v) {
         return regexUrl.test(v);
       },
