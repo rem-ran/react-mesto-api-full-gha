@@ -15,7 +15,7 @@ function Card({
   const currentUser = useContext(CurrentUserContext);
 
   //определяем какие карточки лайкнуты нами
-  const isLiked = likes.some((id) => id === currentUser._id);
+  const isLiked = likes.some((i) => i._id === currentUser._id);
 
   //назначаем переменной стили в зависимости от того лайкнули мы карточку или нет
   const cardLikeButtonClassName = `card__like-btn ${
@@ -23,7 +23,7 @@ function Card({
   }`;
 
   //сравниваем id хозяина карточки и свой id
-  const isOwn = owner === currentUser._id;
+  const isOwn = owner._id === currentUser._id;
 
   //метод обработки открытия попапа с увеличенной картинкой
   const handleClick = () => {

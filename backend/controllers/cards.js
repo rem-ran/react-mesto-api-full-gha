@@ -9,14 +9,18 @@ const ValidationError = require('../errors/ValidationError');
 // контроллер получения имеющихся карточек
 module.exports.getCards = (req, res, next) => {
   Card.find({})
+
+    .populate(['likes', 'owner'])
+
     .then((cards) => res.send(cards))
+
     .catch(next);
 };
 
 // контроллер создания новой карточки
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
-  const owner = req.user._id;
+  const owner = req.user;
 
   Card.create({ name, link, owner })
     .then((card) => res.status(CODE_201).send(card))
@@ -36,12 +40,14 @@ module.exports.deleteCard = (req, res, next) => {
 
   Card.findById(cardId)
 
+    .populate(['likes', 'owner'])
+
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка по указанному _id не найдена.');
       }
 
-      if (card.owner.toString() !== _id.toString()) {
+      if (card.owner._id.toString() !== _id.toString()) {
         throw new NoRightsError('Нельзя удалять чужие карточки.');
       }
 
@@ -68,6 +74,7 @@ module.exports.putCardLike = (req, res, next) => {
     },
     { new: true },
   )
+    .populate(['likes', 'owner'])
 
     .then((card) => {
       if (!card) {
@@ -93,6 +100,7 @@ module.exports.deleteCardLike = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
+    .populate(['likes', 'owner'])
 
     .then((card) => {
       if (!card) {
