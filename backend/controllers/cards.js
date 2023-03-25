@@ -20,7 +20,7 @@ module.exports.getCards = (req, res, next) => {
 // контроллер создания новой карточки
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
-  const owner = req.user;
+  const owner = req.user._id;
 
   Card.create({ name, link, owner })
     .then((card) => res.status(CODE_201).send(card))

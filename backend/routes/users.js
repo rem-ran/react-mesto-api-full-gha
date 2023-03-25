@@ -6,7 +6,7 @@ const {
   getUsers,
   getUser,
   getUserById,
-  updateUser,
+  updateUserInfo,
   updateUserAvatar,
 } = require('../controllers/users');
 
@@ -33,7 +33,7 @@ router.patch('/me', celebrate({
     about: Joi.string().required().min(2).max(30),
   }),
 
-}), updateUser);
+}), updateUserInfo);
 
 // рутер обновление аватара пользователя
 router.patch('/me/avatar', celebrate({

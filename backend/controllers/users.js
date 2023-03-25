@@ -48,7 +48,11 @@ module.exports.getUserById = (req, res, next) => {
 // контроллер создания нового пользователя
 module.exports.createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name,
+    about,
+    avatar,
+    email,
+    password,
   } = req.body;
 
   bcrypt
@@ -63,9 +67,14 @@ module.exports.createUser = (req, res, next) => {
     }))
 
     .then(() => {
-      res.send(new User({
-        name, about, avatar, email,
-      }));
+      res.send(
+        new User({
+          name,
+          about,
+          avatar,
+          email,
+        }),
+      );
     })
 
     .catch((err) => {
@@ -74,7 +83,35 @@ module.exports.createUser = (req, res, next) => {
       }
 
       if (err.code === 11000) {
-        return next(new SameEntryError('Пользователь с таким email уже существует'));
+        return next(
+          new SameEntryError('Пользователь с таким email уже существует'),
+        );
+      }
+
+      return next(err);
+    });
+};
+
+const updateUser = (req, res, next) => {
+  const { name, about, avatar } = req.body;
+
+  User.findByIdAndUpdate(
+    req.user._id,
+    avatar
+      ? { avatar }
+      : { name, about },
+    { runValidators: true },
+  )
+
+    .then((user) => res.send(
+      avatar
+        ? { name: user.name, about: user.about, avatar }
+        : { name, about, avatar: user.avatar },
+    ))
+
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return next(new ValidationError(err.message));
       }
 
       return next(err);
@@ -82,36 +119,10 @@ module.exports.createUser = (req, res, next) => {
 };
 
 // контроллер обновления данных пользователя
-module.exports.updateUser = (req, res, next) => {
-  const { name, about } = req.body;
-
-  User.findByIdAndUpdate(req.user._id, { name, about }, { runValidators: true })
-    .then((user) => res.send({ name, about, avatar: user.avatar }))
-
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return next(new ValidationError(err.message));
-      }
-
-      return next(err);
-    });
-};
+module.exports.updateUserInfo = updateUser;
 
 // контроллер обновления аватара пользователя
-module.exports.updateUserAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-
-  User.findByIdAndUpdate(req.user._id, { avatar }, { runValidators: true })
-    .then((user) => res.send({ name: user.name, about: user.about, avatar }))
-
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return next(new ValidationError(err.message));
-      }
-
-      return next(err);
-    });
-};
+module.exports.updateUserAvatar = updateUser;
 
 // контроллер логина пользователя
 module.exports.login = (req, res, next) => {
@@ -120,18 +131,21 @@ module.exports.login = (req, res, next) => {
   const { NODE_ENV, JWT_SECRET } = process.env;
 
   return User.findUserByCredentials(email, password)
+
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
+
       res
         .cookie('jwt', token, {
           maxAge: 3600000,
           httpOnly: true,
           sameSite: true,
         })
+
         .send({
           email,
           about: user.about,
