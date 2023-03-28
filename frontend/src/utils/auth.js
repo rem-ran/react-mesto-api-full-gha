@@ -1,4 +1,4 @@
-const BASE_URL = "https://api.remran.nomoredomains.work";
+const BASE_URL = 'https://api.remran.nomoredomains.work';
 
 function getResponseData(res) {
   if (!res.ok) {
@@ -9,9 +9,9 @@ function getResponseData(res) {
 
 export const register = ({ password, email }) => {
   return fetch(`${BASE_URL}/signup`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ password, email }),
   }).then(getResponseData);
@@ -19,22 +19,21 @@ export const register = ({ password, email }) => {
 
 export const authorize = ({ password, email }) => {
   return fetch(`${BASE_URL}/signin`, {
-    method: "POST",
-    credentials: "include",
+    method: 'POST',
+    credentials: 'include',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ password, email }),
-  })
-    .then(getResponseData)
+  }).then(getResponseData);
 };
 
 export const getContent = () => {
   return fetch(`${BASE_URL}/users/me`, {
-    method: "GET",
-    credentials: "include",
+    method: 'GET',
+    credentials: 'include',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   })
     .then(getResponseData)

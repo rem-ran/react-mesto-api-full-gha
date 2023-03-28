@@ -93,8 +93,8 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-// общий метод обновления пользователя
-const updateUser = (req, res, next) => {
+// общий контроллер обновления данных пользователя
+module.exports.updateUser = (req, res, next) => {
   const { name, about, avatar } = req.body;
 
   User.findByIdAndUpdate(
@@ -107,8 +107,18 @@ const updateUser = (req, res, next) => {
 
     .then((user) => res.send(
       avatar
-        ? { name: user.name, about: user.about, avatar }
-        : { name, about, avatar: user.avatar },
+        ? {
+          name: user.name,
+          about: user.about,
+          avatar,
+          _id: user._id,
+        }
+        : {
+          name,
+          about,
+          avatar: user.avatar,
+          _id: user._id,
+        },
     ))
 
     .catch((err) => {
@@ -119,12 +129,6 @@ const updateUser = (req, res, next) => {
       return next(err);
     });
 };
-
-// контроллер обновления данных пользователя
-module.exports.updateUserInfo = updateUser;
-
-// контроллер обновления аватара пользователя
-module.exports.updateUserAvatar = updateUser;
 
 // контроллер логина пользователя
 module.exports.login = (req, res, next) => {

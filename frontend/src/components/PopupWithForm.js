@@ -13,34 +13,35 @@ function PopupWithForm({
 }) {
   //вешаем слушатель на зактрые модального окна по нажатию ESC клавиши
   useEffect(() => {
-    const handleEscClose = (event) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
+    const handleEscClose = (ev) => {
+      if (ev.key === "Escape") {
+        ev.preventDefault();
+        onClose();
+      }
+    }
 
+    //метод закрытия модального окна по клику вне модального окна
+    const handleOutsideClickClose = (ev) => {
+      if (ev.target.classList.contains("popup_opened")) {
+        ev.preventDefault();
         onClose();
       }
     };
 
     document.addEventListener("keydown", handleEscClose);
+    document.addEventListener("click", handleOutsideClickClose);
 
     return () => {
       document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener("click", handleOutsideClickClose);
     };
   }, []);
-
-  //метод закрытия модального окна по клику вне модального окна
-  const handleOutsideClickClose = (e) => {
-    if (e.target.classList.contains("popup_opened")) {
-      onClose();
-    }
-  };
 
   return (
     <section
       className={`popup form popup_type_${name} ${
         isOpen ? "popup_opened" : ""
       }`}
-      onClick={handleOutsideClickClose}
     >
       <div className={`popup__container popup__container_${name}`}>
         <h2 className={`popup__heading popup__heading_type_${name}`}>

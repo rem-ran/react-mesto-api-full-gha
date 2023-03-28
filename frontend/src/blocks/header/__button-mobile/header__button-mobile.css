@@ -1,0 +1,24 @@
+.header__button-mobile {
+  display: none;
+  background-image: url('../../../images/burger-menu.png');
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding: 0;
+  border: none;
+  width: 26px;
+  height: 26px;
+  transition: linear 0.2s;
+}
+
+@media screen and (max-width: 767px) {
+  .header__button-mobile {
+    display: block;
+    margin-right: 30px;
+  }
+}
+
+.header__button-mobile:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}

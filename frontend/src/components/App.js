@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 // импортируем контекст пользователя
-import { CurrentUserContext } from "../context/CurrentUserContext";
+import { CurrentUserContext } from '../context/CurrentUserContext';
 
 // импортируем компоненты
-import Main from "./Main";
-import ImagePopup from "./ImagePopup";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
-import PopupWithConfirmation from "./PopupWithConfirmation";
-import Login from "./Login";
-import Register from "./Register";
-import ProtectedRoute from "./ProtectedRoute";
-import InfoTooltip from "./InfoTooltip";
-import api from "../utils/api";
-import * as auth from "../utils/auth";
+import Main from './Main';
+import ImagePopup from './ImagePopup';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
+import PopupWithConfirmation from './PopupWithConfirmation';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
+import InfoTooltip from './InfoTooltip';
+import api from '../utils/api';
+import * as auth from '../utils/auth';
 
-import okPic from "../images/check-mark.svg";
-import notOkPic from "../images/cross-mark.svg";
+import okPic from '../images/check-mark.svg';
+import notOkPic from '../images/cross-mark.svg';
 
 function App() {
   const navigate = useNavigate();
@@ -59,13 +59,21 @@ function App() {
   const [userData, setUserData] = useState({});
 
   //переменная состояния текста сообщения в информационном модальном окне
-  const [infoModalMsg, setInfoModalMsg] = useState("");
+  const [infoModalMsg, setInfoModalMsg] = useState('');
 
   //переменная состояния попапа с подсказкой
   const [infoTooltipStatus, setInfoTooltipStatus] = useState(false);
 
   //переменная состояния изображения в информационном модальном окне
-  const [modalImg, setModalImg] = useState({ img: "", alt: "" });
+  const [modalImg, setModalImg] = useState({ img: '', alt: '' });
+
+  //переменная состояния клика меню на мобильном разрешении
+  const [isMenuClicked, setMenuClicked] = useState(false);
+
+  //метод обработки состояния клика меню на мобильном разрешении
+  const handleOpenMenu = () => {
+    setMenuClicked((open) => !open);
+  };
 
   //метод обработки открытия попапа обновления данных пользователя
   const handleEditProfileClick = () => {
@@ -262,18 +270,18 @@ function App() {
       .authorize({ password, email })
       .then((data) => {
         if (data._id) {
-          localStorage.setItem("jwt", data._id);
+          localStorage.setItem('jwt', data._id);
           setUserData({ email });
           setLoggedIn(true);
-          navigate("/", { replace: true });
+          navigate('/', { replace: true });
         }
       })
 
       .catch((error) => {
         handleLogin(
           true,
-          { img: notOkPic, alt: "red cross icon in a circle" },
-          "Что-то пошло не так! Попрубуйте еще раз."
+          { img: notOkPic, alt: 'red cross icon in a circle' },
+          'Что-то пошло не так! Попрубуйте еще раз.'
         );
         console.log(`Error with login: ${error}`);
       });
@@ -286,16 +294,16 @@ function App() {
       .then((res) => {
         handleLogin(
           true,
-          { img: okPic, alt: "black check mark icon in a circle" },
-          "Вы успешно зарегистрировались!"
+          { img: okPic, alt: 'black check mark icon in a circle' },
+          'Вы успешно зарегистрировались!'
         );
-        navigate("/sign-in", { replace: true });
+        navigate('/sign-in', { replace: true });
       })
       .catch((error) => {
         handleLogin(
           true,
-          { img: notOkPic, alt: "red cross icon in a circle" },
-          "Что-то пошло не так! Попрубуйте еще раз."
+          { img: notOkPic, alt: 'red cross icon in a circle' },
+          'Что-то пошло не так! Попрубуйте еще раз.'
         );
         console.log(`Error with registration: ${error}`);
       });
@@ -303,7 +311,7 @@ function App() {
 
   //метод проверки токенов авторизированных пользователей, вернувшихся в приложение
   function handleTokenCheck() {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem('jwt');
     if (token) {
       auth
         .getContent()
@@ -314,7 +322,7 @@ function App() {
             };
             setLoggedIn(true);
             setUserData(userData);
-            navigate("/", { replace: true });
+            navigate('/', { replace: true });
           }
         })
         .catch((error) => {
@@ -325,9 +333,9 @@ function App() {
 
   //метод выхода пользоваетля из системы
   const handleSignOut = () => {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem('jwt');
     setLoggedIn(false);
-    navigate("/sign-in");
+    navigate('/sign-in');
   };
 
   //вызываем метод проверки токенов при рендеринге главной страницы
@@ -337,7 +345,7 @@ function App() {
 
   return (
     <div
-      className={`page__content ${!loggedIn ? "page__content_type_login" : ""}`}
+      className={`page__content ${!loggedIn ? 'page__content_type_login' : ''}`}
     >
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
@@ -365,6 +373,8 @@ function App() {
                   cards={cards}
                   userData={userData}
                   handleSignOut={handleSignOut}
+                  isMenuClicked={isMenuClicked}
+                  handleOpenMenu={handleOpenMenu}
                 />
               </ProtectedRoute>
             }
