@@ -5,11 +5,7 @@ const { regexUrl } = require('../config');
 const auth = require('../middlewares/auth');
 const userRouter = require('./users');
 const cardRouter = require('./cards');
-const { requestLogger, errorLogger } = require('../middlewares/logger');
 const NotFoundError = require('../errors/NotFoundError');
-
-// подключаем логгер запросов
-router.use(requestLogger);
 
 // краш-тест согласно ТЗ
 router.get('/crash-test', () => {
@@ -52,9 +48,6 @@ router.use('/users', userRouter);
 router.use((req, res, next) => {
   next(new NotFoundError('Запрошен несуществующий роут.'));
 });
-
-// подключаем логгер ошибок
-router.use(errorLogger);
 
 // обработчик ошибок celebrate
 router.use(errors());

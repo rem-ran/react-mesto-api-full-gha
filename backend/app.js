@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes/index');
 const { errorHandler } = require('./middlewares/errorHandler');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DB_ADDRESS, PORT } = require('./config');
 
 const app = express();
@@ -20,8 +21,14 @@ mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
 });
 
+// подключаем логгер запросов
+app.use(requestLogger);
+
 // подключаем руты
 app.use(routes);
+
+// подключаем логгер ошибок
+app.use(errorLogger);
 
 // подключаем централизованный обработчик ошибок
 app.use(errorHandler);
