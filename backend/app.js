@@ -9,7 +9,7 @@ const { DB_ADDRESS, PORT } = require('./config');
 
 const app = express();
 
-app.use(cors({ origin: ['https://remran.nomoredomains.work'], credentials: true, maxAge: 300 }));
+app.use(cors({ origin: ['http://localhost:3001', 'https://remran.nomoredomains.work'], credentials: true, maxAge: 300 }));
 
 app.use(cookieParser());
 

@@ -107,8 +107,18 @@ const updateUser = (req, res, next) => {
 
     .then((user) => res.send(
       avatar
-        ? { name: user.name, about: user.about, avatar }
-        : { name, about, avatar: user.avatar },
+        ? {
+          name: user.name,
+          about: user.about,
+          avatar,
+          _id: user._id,
+        }
+        : {
+          name,
+          about,
+          avatar: user.avatar,
+          _id: user._id,
+        },
     ))
 
     .catch((err) => {
