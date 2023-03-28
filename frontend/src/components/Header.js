@@ -1,16 +1,19 @@
 //импортируем картинку лого
-import headerLogoPath from "../images/header-logo.svg";
+import headerLogoPath from '../images/header-logo.svg';
 
 //компонент хедера
-function Header({ children }) {
+function Header({ links, headerUserContainer }) {
   return (
     <header className="header">
-      <img
-        className="header__logo"
-        src={headerLogoPath}
-        alt="логотип Mesto Russia белого цвета"
-      />
-      {children}
+      <div className="header__logo-container">
+        <img
+          className="header__logo"
+          src={headerLogoPath}
+          alt="логотип Mesto Russia белого цвета"
+        />
+        {links}
+      </div>
+      {headerUserContainer}
     </header>
   );
 }

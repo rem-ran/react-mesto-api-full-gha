@@ -2,3 +2,10 @@
   color: #a9a9a9;
   margin-left: 24px;
 }
+
+@media screen and (max-width: 767px) {
+  .header__link_type_main {
+    margin: 0;
+    margin-top: 18px;
+  }
+}

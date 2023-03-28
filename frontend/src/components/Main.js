@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { CurrentUserContext } from "../context/CurrentUserContext.js";
-import Card from "./Card.js";
-import Header from "./Header.js";
-import Footer from "./Footer.js";
+import { useContext } from 'react';
+import { CurrentUserContext } from '../context/CurrentUserContext.js';
+import Card from './Card.js';
+import Header from './Header.js';
+import Footer from './Footer.js';
 
 //компонент начальной страницы
 function Main({
@@ -15,24 +15,40 @@ function Main({
   cards,
   userData,
   handleSignOut,
+  isMenuClicked,
+  handleOpenMenu,
 }) {
   // const currentUser = useContext(CurrentUserContext);
   const { name, about, avatar } = useContext(CurrentUserContext);
 
   return (
     <>
-      <Header>
-        <div>
-          <span className="header__email">{userData.email}</span>
+      <Header
+        links={
           <button
-            to="/sign-in"
-            onClick={handleSignOut}
-            className="header__link header__link_type_main"
+            className={`header__button-mobile ${
+              isMenuClicked ? 'header__button-mobile_type_close' : ''
+            }`}
+            onClick={handleOpenMenu}
+          ></button>
+        }
+        headerUserContainer={
+          <div
+            className={`header__user-container ${
+              isMenuClicked ? 'header__user-container_visible' : ''
+            }`}
           >
-            Выйти
-          </button>
-        </div>
-      </Header>
+            <span className="header__email">{userData.email}</span>
+            <button
+              to="/sign-in"
+              onClick={handleSignOut}
+              className="header__link header__link_type_main"
+            >
+              Выйти
+            </button>
+          </div>
+        }
+      ></Header>
       <main>
         {/* секция профиля */}
         <section className="profile">

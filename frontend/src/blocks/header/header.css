@@ -16,8 +16,9 @@
 
 @media screen and (max-width: 767px) {
   .header {
+    flex-direction: column-reverse;
     max-width: 320px;
     min-height: 56px;
-    padding-top: 28px;
+    padding-top: 0;
   }
 }
